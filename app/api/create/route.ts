@@ -5,7 +5,7 @@ import z from "zod";
 import { put } from "@vercel/blob";
 import { sql } from "@vercel/postgres";
 
-export const PostSchema = z.object({
+const PostSchema = z.object({
   title: z.string().min(1).max(64),
   image: z.any(),
   author: z.string(),
