@@ -1,9 +1,30 @@
-import { App } from "./components/app";
+import { getServerSession } from "next-auth";
 
-export default function Home() {
+import { redirect } from "next/navigation";
+import { LoginButton } from "./components/login-button";
+
+export default async function Login() {
+  const session = await getServerSession();
+
+  if (session?.user) {
+    redirect("/dashboard");
+    return;
+  }
+
   return (
-    <main className="h-screen">
-      <App />
-    </main>
+    <div className="h-screen flex items-center justify-center">
+      <div className="mx-auto w-[350px] space-y-6">
+        <div className="space-y-2 text-center">
+          <h1 className="text-3xl font-bold">Login</h1>
+          <p className="text-zinc-500 dark:text-zinc-400">
+            Click the button below to login to your account
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <LoginButton />
+        </div>
+      </div>
+    </div>
   );
 }

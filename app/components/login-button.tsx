@@ -1,21 +1,14 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+"use client";
 
-export default function LoginButton() {
-  const { data } = useSession();
+import { signIn } from "next-auth/react";
 
-  if (data?.user) {
-    return (
-      <div>
-        Signed in as {data.user.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-      </div>
-    );
-  }
-
+export function LoginButton() {
   return (
-    <div>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-    </div>
+    <button
+      className="bg-black text-white p-2 rounded-md w-full text-center text-sm"
+      onClick={() => signIn("github")}
+    >
+      Sign in with Github
+    </button>
   );
 }
