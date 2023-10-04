@@ -6,6 +6,7 @@ type Post = {
   title: string;
   image: string;
   author: string;
+  created_at: Date;
 };
 
 export async function list() {

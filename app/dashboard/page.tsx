@@ -21,7 +21,7 @@ export default async function Dashboard() {
         <LogoutButton />
       </div>
 
-      <section className="h-screen w-1/2 bg-gray-200 p-4 overflow-y-auto">
+      <section className="w-1/2 bg-gray-200 p-4 overflow-y-auto">
         <Posts />
       </section>
     </main>

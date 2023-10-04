@@ -1,12 +1,13 @@
 type SpinnerProps = {
   size?: number;
+  color?: string;
 };
 
-export function Spinner({ size }: SpinnerProps) {
+export function Spinner({ size, color }: SpinnerProps) {
   return (
     <svg
-      className="animate-spin text-gray-500"
-      fill="none"
+      className="animate-spin"
+      fill={color}
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
