@@ -3,12 +3,12 @@
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 
-import { Spinner } from "./spinner";
+import { Spinner } from "@/components/ui/spinner";
 import {
-  TooltipProvider,
   Tooltip,
-  TooltipTrigger,
   TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from "@/components/ui/tooltip";
 
 export function LogoutButton() {

@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
 
-import { list } from "../api/list";
+import { list } from "@/app/api/list";
 
 dayjs.extend(relativeTime);
 

@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
-
 import { redirect } from "next/navigation";
-import { LoginButton } from "./components/login-button";
+
+import { LoginButton } from "@/components/logic/login-button";
 
 export default async function Login() {
   const session = await getServerSession();

@@ -3,8 +3,8 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 
-import { Spinner } from "./spinner";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 
 export function LoginButton() {
   const [loading, setLoading] = useState(false);
