@@ -1,16 +1,16 @@
 "use server";
 
-import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 import z from "zod";
 
 import { put } from "@vercel/blob";
 import { sql } from "@vercel/postgres";
-import { revalidatePath } from "next/cache";
+
+import { currentAccount } from "./account-current";
 
 const PostSchema = z.object({
   title: z.string().min(8).max(64),
   image: z.any(),
-  author: z.string(),
 });
 
 type State = { success: false; error: string } | { success: true } | undefined;
@@ -19,22 +19,21 @@ export async function create(
   _prevState: State,
   formData: FormData
 ): Promise<State> {
-  const session = await getServerSession();
+  const account = await currentAccount();
 
-  if (!session?.user) {
+  if (!account) {
     return { success: false, error: "Not logged in" };
   }
 
   try {
-    const { image, title, author } = PostSchema.parse({
-      author: session.user.name,
+    const { image, title } = PostSchema.parse({
       image: formData.get("image"),
       title: formData.get("title"),
     });
 
     const { url } = await put(image.name, image, { access: "public" });
 
-    await sql`INSERT INTO Posts (Image, Title, Author) VALUES (${url}, ${title}, ${author});`;
+    await sql`INSERT INTO Posts (Image, Title, Account_id) VALUES (${url}, ${title}, ${account.id});`;
   } catch (error) {
     if (error instanceof z.ZodError) {
       const [issue] = error.issues;

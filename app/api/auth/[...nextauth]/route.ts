@@ -1,5 +1,8 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
+import z from "zod";
+
+import { createAccount } from "@/app/api/account-create";
 
 if (!process.env.GITHUB_ID) {
   throw new Error("Missing env var: GITHUB_ID");
@@ -13,10 +16,12 @@ if (!process.env.VERCEL_ORG_ID) {
   throw new Error("Missing env var: VERCEL_ORG_ID");
 }
 
-type Org = {
-  id: number;
-  login: string;
-};
+const GithubUserSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  organizations_url: z.string(),
+  email: z.string(),
+});
 
 const handler = NextAuth({
   providers: [
@@ -27,18 +32,23 @@ const handler = NextAuth({
   ],
   callbacks: {
     signIn: async ({ profile }) => {
-      if (
-        profile &&
-        "organizations_url" in profile &&
-        typeof profile.organizations_url === "string"
-      ) {
-        const response = await fetch(profile.organizations_url);
-        const orgs: Org[] = await response.json();
+      const parseResult = GithubUserSchema.safeParse(profile);
 
-        return orgs.some(
-          ({ id, login }) =>
-            login === "vercel" && String(id) === process.env.VERCEL_ORG_ID
+      if (parseResult.success) {
+        const { organizations_url, id, name, email } = parseResult.data;
+
+        const response = await fetch(organizations_url);
+        const orgs: { id: string }[] = await response.json();
+
+        const isVercelMember = orgs.some(
+          ({ id }) => String(id) === process.env.VERCEL_ORG_ID
         );
+
+        if (isVercelMember) {
+          await createAccount({ githubId: String(id), name, email });
+
+          return true;
+        }
       }
 
       return false;

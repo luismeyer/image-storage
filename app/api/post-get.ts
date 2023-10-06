@@ -2,14 +2,9 @@ import { getServerSession } from "next-auth";
 
 import { sql } from "@vercel/postgres";
 
-type Post = {
-  title: string;
-  image: string;
-  author: string;
-  created_at: Date;
-};
+import { Post } from "./types";
 
-export async function list() {
+export async function getPost(id: number) {
   const session = await getServerSession();
 
   if (!session?.user) {
@@ -18,9 +13,9 @@ export async function list() {
 
   try {
     const result =
-      await sql<Post>`SELECT * FROM posts ORDER BY created_at DESC LIMIT 20 OFFSET 0;`;
+      await sql<Post>`SELECT * FROM posts WHERE id = ${id} LIMIT 1;`;
 
-    return result.rows;
+    return result.rows[0];
   } catch (error) {
     console.error({ error });
 

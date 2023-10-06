@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { experimental_useFormState as useFormState } from "react-dom";
 import toast, { Toaster } from "react-hot-toast";
 
-import { create } from "@/app/api/create";
+import { create } from "@/app/api/post-create";
 
 import { Inputs } from "./inputs";
 import { SubmitButton } from "./submit-button";
