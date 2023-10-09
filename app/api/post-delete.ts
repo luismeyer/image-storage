@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { sql } from "@vercel/postgres";
+import { del } from "@vercel/blob";
 
 import { currentAccount } from "./account-current";
 import { getPost } from "./post-get";
@@ -20,6 +21,8 @@ export async function deletePost(id: number): Promise<boolean> {
     await sql`DELETE FROM posts WHERE id = ${id};`;
 
     revalidatePath("/dashboard");
+
+    await del(post.image);
   } catch (error) {
     return false;
   }
