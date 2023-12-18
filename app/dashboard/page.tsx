@@ -6,24 +6,24 @@ import { LogoutButton } from "@/components/logic/logout-button";
 import { Posts } from "@/components/logic/posts";
 
 export default async function Dashboard() {
-  const session = await getServerSession();
+	const session = await getServerSession();
 
-  if (!session?.user) {
-    redirect("/");
-    return;
-  }
+	if (!session?.user) {
+		redirect("/");
+		return;
+	}
 
-  return (
-    <main className="h-screen w-screen flex">
-      <div className="w-1/2 flex items-center justify-center">
-        <Form />
+	return (
+		<main className="h-screen w-screen flex">
+			<div className="w-1/2 flex items-center justify-center">
+				<Form />
 
-        <LogoutButton />
-      </div>
+				<LogoutButton />
+			</div>
 
-      <section className="w-1/2 p-4 overflow-y-auto vercel-fade">
-        <Posts />
-      </section>
-    </main>
-  );
+			<section className="w-1/2 p-4 overflow-y-auto vercel-fade">
+				<Posts />
+			</section>
+		</main>
+	);
 }

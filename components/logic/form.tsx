@@ -10,36 +10,36 @@ import { Inputs } from "./inputs";
 import { SubmitButton } from "./submit-button";
 
 export function Form() {
-  const form = useRef<HTMLFormElement>(null);
+	const form = useRef<HTMLFormElement>(null);
 
-  const [state, formAction] = useFormState(create, undefined);
+	const [state, formAction] = useFormState(create, undefined);
 
-  useEffect(() => {
-    if (!state) {
-      return;
-    }
+	useEffect(() => {
+		if (!state) {
+			return;
+		}
 
-    if (state?.success) {
-      form.current?.reset();
-      toast.success("Image uploaded successfully!");
-    } else {
-      toast.error(state.error);
-    }
-  }, [state]);
+		if (state?.success) {
+			form.current?.reset();
+			toast.success("Image uploaded successfully!");
+		} else {
+			toast.error(state.error);
+		}
+	}, [state]);
 
-  return (
-    <form
-      ref={form}
-      className="grid w-full max-w-sm items-center gap-1.5"
-      action={formAction}
-    >
-      <Toaster position="top-left" />
+	return (
+		<form
+			ref={form}
+			className="grid w-full max-w-sm items-center gap-1.5"
+			action={formAction}
+		>
+			<Toaster position="top-left" />
 
-      <h1 className="text-3xl text-gray-800 mb-4">Create an Image post</h1>
+			<h1 className="text-3xl text-gray-800 mb-4">Create an Image post</h1>
 
-      <Inputs />
+			<Inputs />
 
-      <SubmitButton />
-    </form>
-  );
+			<SubmitButton />
+		</form>
+	);
 }

@@ -9,23 +9,23 @@ import { currentAccount } from "./account-current";
 import { getPost } from "./post-get";
 
 export async function deletePost(id: number): Promise<boolean> {
-  const account = await currentAccount();
+	const account = await currentAccount();
 
-  const post = await getPost(id);
+	const post = await getPost(id);
 
-  if (!account || !post || account.id !== post?.account_id) {
-    return false;
-  }
+	if (!account || !post || account.id !== post?.account_id) {
+		return false;
+	}
 
-  try {
-    await sql`DELETE FROM posts WHERE id = ${id};`;
+	try {
+		await sql`DELETE FROM posts WHERE id = ${id};`;
 
-    revalidatePath("/dashboard");
+		revalidatePath("/dashboard");
 
-    await del(post.image);
-  } catch (error) {
-    return false;
-  }
+		await del(post.image);
+	} catch (error) {
+		return false;
+	}
 
-  return true;
+	return true;
 }

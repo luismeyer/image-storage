@@ -7,14 +7,14 @@ import { sql } from "@vercel/postgres";
 import { Account } from "./types";
 
 export async function currentAccount() {
-  const session = await getServerSession();
+	const session = await getServerSession();
 
-  if (!session?.user?.email) {
-    return;
-  }
+	if (!session?.user?.email) {
+		return;
+	}
 
-  const { rows } =
-    await sql<Account>`select * from accounts where email = ${session.user.email} limit 1;`;
+	const { rows } =
+		await sql<Account>`select * from accounts where email = ${session.user.email} limit 1;`;
 
-  return rows[0];
+	return rows[0];
 }
