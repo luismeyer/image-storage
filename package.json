@@ -12,11 +12,14 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.7",
+    "@vercel-private/flags-adapter-native": "^4.1.0",
     "@vercel/blob": "^0.22.0",
+    "@vercel/edge-config": "^1.4.0",
     "@vercel/postgres": "^0.5.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.10",
+    "flags": "^4.0.1",
     "lucide-react": "^0.284.0",
     "next": "13.5.4",
     "next-auth": "^4.23.2",
@@ -28,7 +31,7 @@
     "zod": "^3.22.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.4.1",
+    "@biomejs/biome": "2.1.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "latest",
@@ -38,5 +41,6 @@
     "postcss": "^8",
     "tailwindcss": "^3",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@8.11.0+sha512.9df87c16c98db27b4e051d787e67f2207ec47e809ccb07bf7b5ec4acdcd1613355839a38d0b900144923d6a7057700b74d2a0ccb1558beb241647a1206a9a7ab"
 }

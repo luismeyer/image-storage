@@ -10,7 +10,6 @@ export default async function Dashboard() {
 
 	if (!session?.user) {
 		redirect("/");
-		return;
 	}
 
 	return (
